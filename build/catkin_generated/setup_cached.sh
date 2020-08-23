@@ -7,7 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/praveen/delivery_bot/devel:$CMAKE_PREFIX_PATH"
 export PWD='/home/praveen/delivery_bot/build'
-export ROSLISP_PACKAGE_DIRECTORIES="/home/praveen/delivery_bot/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/praveen/delivery_bot/src:$ROS_PACKAGE_PATH"

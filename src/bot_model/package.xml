@@ -41,7 +41,7 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>urdf</exec_depend>
-
+ <exec_depend>gazebo_plugins</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

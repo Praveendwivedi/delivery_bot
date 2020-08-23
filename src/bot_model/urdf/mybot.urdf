@@ -1,116 +1,163 @@
-<robot name="mybot">
+<?xml version='1'?>
 
-	<!-- * * * Link Definitions * * * -->
-	<link name="base">
-		<visual>
-			<origin xyz="0.25 0 0.35" 
-				rpy="1.5708 0 1.5708"/>
-			<geometry>
-				<box size="0.5 0.75 0.5"/>
-			</geometry>
-	     		<material name="red">
-				<color rgba="0.9 0 0 1.0"/>
-			</material>
-	       </visual>
-  	</link>
- 	<link name="right_rear_wheel">
-		<visual>
-			<origin xyz="0 0 0" 
-				rpy="1.5708 0 1.5708"/>
-			<geometry>
-				<cylinder radius="0.15" 
-					  length="0.01"/>
-			</geometry>
-	     		<material name="green">
-				<color rgba="0 0.9 0.9 1.0"/>
-			</material>
-	   	</visual>
-	</link>
-	<link name="left_rear_wheel">
-		<visual>
-			<origin xyz="0 0 0" 
-				rpy="1.5708 0 1.5708"/>
-			<geometry>
-				<cylinder radius="0.15"  
-					  length="0.01"/>
-			</geometry>
-	     	<material name="green">
-				<color rgba="0 0.9 0.9 1.0"/>
-			</material>
-	   </visual>
-	</link>
-	<link name="front_wheel">
-		<visual>
-			<origin xyz="0 0 0" 
-				rpy="1.5708 0 1.5708"/>
-			<geometry>
-				<cylinder radius="0.15" 
-					  length="0.01"/>
-			</geometry>
-	     		<material name="purple">
-				<color rgba="0.9 0 0.9 1.0"/>
-			</material>
-	   	</visual>
-	</link>
-	
-    <!-- * * * Joint Description * * * -->
- 	<joint name="base_front" type="revolute">
-    		<parent link="base"/>
-    		<child link="front_wheel"/>
-    		<origin xyz="0.5 0 0" 
-			rpy="0 0 0"/>
-       		<limit upper   = " 0.7 " 
-		       lower   = "-0.7" 
-		       effort  = " 1  " 
-		       velocity= " 3  "/>
-        	<axis xyz="0 0 1"/>
-	</joint>
-	<joint name="base_right_rear_wheel" type="continuous">
-    		<parent link="base"/>
-    		<child link="right_rear_wheel"/>
-    		<origin xyz="0 0.3 0" 
-			rpy="0 0 0"/>
-       		<limit 
-		       effort  = "1" 
-		       velocity= "3"/>
-        	<axis xyz="0 0 1"/>
-	</joint>
-	<joint name="base_left_rear_wheel" type="continuous">
-    		<parent link="base"/>
-    		<child link="left_rear_wheel"/>
-    		<origin xyz="0 -0.3 0" 
-			rpy="0 0 0"/>
-       		<limit  
-		       effort  = "1" 
-		       velocity= "3"/>
-        	<axis xyz="0 0 1"/>
-	</joint>
-    <gazebo>
-    <plugin name="differential_drive_controller" filename="libdiffdrive_plugin.so">
-      
+  
+<robot  name="mybot">
+
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+
+  <link name="base_footprint">
+    
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.001 0.001 0.001" />
+        </geometry>
+    </visual>
+  </link>
+
+  <link name="base_link">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.03" ixy="0.0" ixz="0.0" iyy="0.03" iyz="0.0" izz="0.03"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.16 0.106 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.16 0.106 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_link_joint" type="fixed">
+    <origin xyz="0 0 0.04" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
+
+<link name="left_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry>
+          <cylinder radius="0.035" length="0.005"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry>
+          <cylinder radius="0.035" length="0.005"/>
+        </geometry>
+      </collision>
+      <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.00015" ixy = "0" ixz = "0" iyy="0.00015" iyz="0" izz ="0.0003"/> 
+    </inertial>
+     </link>
+    <joint name="left_wheel_joint" type="continuous">
+      <axis xyz="0 1 0" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="left_wheel"/>
+      <origin xyz="0.02 0.06 -0.005" rpy="0 0 0"/>
+    </joint>
+ 
+   
+    <link name="right_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry>
+          <cylinder radius="0.035" length="0.005"/>
+        </geometry>
+        <material name="red"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <geometry>
+          <cylinder radius="0.035" length="0.005"/>
+        </geometry>
+      </collision>
+      <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.00015" ixy = "0" ixz = "0" iyy="0.00015" iyz="0" izz ="0.0003"/> 
+    </inertial>
+    </link>
+    <joint name="right_wheel_joint" type="continuous">
+      <axis xyz="0 1 0" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="right_wheel"/>
+      <origin xyz="0.02 -0.06 -0.005" rpy="0 0 0"/>
+    </joint>
+ 
+  
+  <link name="caster_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0175"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.0175"/>
+      </geometry>
+    </collision>
+
+     <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.00006" ixy="0.0" ixz="0.0" iyy="0.00006" iyz="0.0" izz="0.00006"/>
+    </inertial>
+  </link>
+
+  <joint name="caster_wheel_joint" type="continuous">
+    <axis xyz="0 1 0" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="caster_wheel"/>
+    <origin xyz="-0.052 0 -0.0225" rpy="0 0 0"/>
+  </joint>
+ <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <alwaysOn>true</alwaysOn>
     <!-- Plugin update rate in Hz -->
     <updateRate>10</updateRate>
 
     <!-- Name of left joint, defaults to `left_joint` -->
-    <leftJoint>base_left_rear_wheel</leftJoint>
+    <leftJoint>left_wheel_joint</leftJoint>
 
     <!-- Name of right joint, defaults to `right_joint` -->
-    <rightJoint>base_right_rear_wheel</rightJoint>
+    <rightJoint>right_wheel_joint</rightJoint>
 
     <!-- The distance from the center of one wheel to the other, in meters, defaults to 0.34 m -->
-    <wheelSeparation>0.6</wheelSeparation>
+    <wheelSeparation>0.12</wheelSeparation>
 
     <!-- Diameter of the wheels, in meters, defaults to 0.15 m -->
-    <wheelDiameter>0.3</wheelDiameter>
+    <wheelDiameter>0.07</wheelDiameter>
 
     <!-- Wheel acceleration, in rad/s^2, defaults to 0.0 rad/s^2 -->
-    <wheelAcceleration>1.0</wheelAcceleration>
+    <wheelAcceleration>0.01</wheelAcceleration>
 
     <!-- Maximum torque which the wheels can produce, in Nm, defaults to 5 Nm -->
-    <wheelTorque>20</wheelTorque>
+    <wheelTorque>0.2</wheelTorque>
 
     <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
-    <commandTopic>cmd_vel</commandTopic>
+    <commandTopic>turtle1/cmd_vel</commandTopic>
 
     <!-- Topic to publish nav_msgs/Odometry messages, defaults to `odom` -->
     <odometryTopic>odom</odometryTopic>
@@ -119,22 +166,18 @@
     <odometryFrame>odom</odometryFrame>
 
     <!-- Robot frame to calculate odometry from, defaults to `base_footprint` -->
-    <robotBaseFrame>base</robotBaseFrame>
+    <robotBaseFrame>base_footprint</robotBaseFrame>
 
-    <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
-    <odometrySource>1</odometrySource>
 
-    <!-- Set to true to publish transforms for the wheel links, defaults to false -->
-    <publishWheelTF>true</publishWheelTF>
-
-    <!-- Set to true to publish transforms for the odometry, defaults to true -->
-    <publishOdom>true</publishOdom>
+ 
 
     <!-- Set to true to publish sensor_msgs/JointState on /joint_states for the wheel joints, defaults to false -->
-    <publishWheelJointState>true</publishWheelJointState>
+    <publishWheelJointState>false</publishWheelJointState>
 
     <!-- Set to true to swap right and left wheels, defaults to true -->
     <legacyMode>false</legacyMode>
+    
+      <legacyMode>false</legacyMode>
     </plugin>
   </gazebo>
 </robot>
