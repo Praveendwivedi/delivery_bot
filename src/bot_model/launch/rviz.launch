@@ -1,8 +1,10 @@
 <?xml version="1"?>
 <launch>
- <include file="$(find gazebo_ros)/launch/empty_world.launch">
-   <arg name="headless" value = "true"/>
+ <!--include file="$(find bot_model)/world/sample.world"-->
+ <include file="$(find gazebo_ros)/launch/mud_world.launch">
+   <!--arg name="headless" value = "false"/>
    <arg name="gui" value = "false" />
+   <arg name = "paused" value = "false"/-->
    </include>
      <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model mybot -param robot_description"/>
